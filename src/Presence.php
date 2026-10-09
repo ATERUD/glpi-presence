@@ -14,6 +14,11 @@ class Presence
      */
     public static function preItemForm(array $params): void
     {
+        // Nessun badge (e nessuna chiamata all'endpoint) per chi non ha il permesso
+        if (!PresenceConfig::canViewPresence()) {
+            return;
+        }
+
         $item = $params['item'] ?? null;
 
         if ($item instanceof User && $item->getID() > 0) {

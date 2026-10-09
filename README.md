@@ -36,9 +36,17 @@ Test rapido dell'endpoint:
 curl -H "Authorization: Bearer xxxx" "https://server/api/presence?user=mario.rossi"
 ```
 
+## Permessi
+
+La presenza è visibile solo ai **profili con il diritto "Presenza in sede"**:
+*Amministrazione > Profili >* (profilo, es. Supervisor) *> scheda "Presenza in sede" >* "Può vedere la presenza" = Sì.
+
+Chi non è autorizzato non vede il badge e l'endpoint non viene interrogato
+(il controllo è anche lato server in `ajax/status.php`). Le modifiche ai profili si applicano al successivo login.
+Alla prima installazione il diritto viene concesso al profilo di chi installa il plugin.
+
 ## Note
 
 - Il badge viene caricato in AJAX (`ajax/status.php`): un endpoint lento non rallenta l'apertura della pagina.
 - Gli errori di chiamata sono scritti in `files/_log/presence.log`.
-- Visibile a chi ha il diritto di lettura su Utenti o Ticket.
 - I testi sono in italiano come stringhe sorgente; per altre lingue si possono aggiungere i file in `locales/`.

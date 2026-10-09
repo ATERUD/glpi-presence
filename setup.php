@@ -2,8 +2,9 @@
 
 use Glpi\Plugin\Hooks;
 use GlpiPlugin\Presence\Presence;
+use GlpiPlugin\Presence\PresenceProfile;
 
-define('PLUGIN_PRESENCE_VERSION', '1.0.0');
+define('PLUGIN_PRESENCE_VERSION', '1.1.0');
 define('PLUGIN_PRESENCE_MIN_GLPI', '11.0.0');
 define('PLUGIN_PRESENCE_MAX_GLPI', '11.1.0');
 
@@ -20,6 +21,9 @@ function plugin_init_presence()
     if (!$plugin->isActivated('presence')) {
         return;
     }
+
+    // Scheda "Presenza in sede" nei profili (diritto per profilo)
+    Plugin::registerClass(PresenceProfile::class, ['addtabon' => ['Profile']]);
 
     // Pagina di configurazione (ingranaggio nella lista plugin)
     $PLUGIN_HOOKS['config_page']['presence'] = 'front/config.form.php';

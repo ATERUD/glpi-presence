@@ -30,6 +30,15 @@ class PresenceConfig
     }
 
     /**
+     * L'utente corrente può vedere la presenza?
+     * Sì se il suo profilo attivo ha il diritto "plugin_presence_view".
+     */
+    public static function canViewPresence(): bool
+    {
+        return (bool) \Session::haveRight(PresenceProfile::RIGHT, READ);
+    }
+
+    /**
      * Token in chiaro (decifrato) per la chiamata all'endpoint
      */
     public static function getToken(array $cfg): string
@@ -136,6 +145,11 @@ class PresenceConfig
         echo "<div class='col-md-4 mb-3 d-flex align-items-end'><label class='form-check'>";
         echo "<input type='checkbox' class='form-check-input' name='verify_ssl' value='1'" . ($cfg['verify_ssl'] === '1' ? ' checked' : '') . ">";
         echo " <span class='form-check-label'>" . __('Verifica certificato SSL', 'presence') . "</span></label></div></div>";
+
+        echo "<hr><h4>" . __('Permessi', 'presence') . "</h4>";
+        echo "<p class='form-text'>"
+            . __('La presenza è visibile ai profili con il diritto "Presenza in sede": Amministrazione > Profili > scheda "Presenza in sede". Le modifiche ai profili si applicano al successivo login.', 'presence')
+            . "</p>";
 
         echo "</div>";
         echo "<div class='card-footer text-center'>";
