@@ -16,8 +16,25 @@ function plugin_presence_install()
 
     // Diritto per profilo: registrato solo la prima volta, poi concesso al profilo
     // di chi installa, così l'amministratore non resta senza accesso.
+    // Le righe già presenti (es. rimaste dopo una migrazione o una disinstallazione
+    // incompleta) vengono mantenute: si aggiungono solo i profili che ne sono privi.
+    global $DB;
+
     $firstTime = countElementsInTable('glpi_profilerights', ['name' => PresenceProfile::RIGHT]) === 0;
-    ProfileRight::addProfileRights([PresenceProfile::RIGHT]);
+
+    $existing = [];
+    foreach ($DB->request(['SELECT' => ['profiles_id'], 'FROM' => 'glpi_profilerights', 'WHERE' => ['name' => PresenceProfile::RIGHT]]) as $row) {
+        $existing[(int) $row['profiles_id']] = true;
+    }
+    foreach ($DB->request(['SELECT' => ['id'], 'FROM' => 'glpi_profiles']) as $profile) {
+        if (!isset($existing[(int) $profile['id']])) {
+            $DB->insertOrIgnore('glpi_profilerights', [
+                'profiles_id' => (int) $profile['id'],
+                'name'        => PresenceProfile::RIGHT,
+                'rights'      => 0,
+            ]);
+        }
+    }
 
     if ($firstTime && !empty($_SESSION['glpiactiveprofile']['id'])) {
         ProfileRight::updateProfileRights(
@@ -35,7 +52,8 @@ function plugin_presence_uninstall()
     $config = new Config();
     $config->deleteByCriteria(['context' => PresenceConfig::CONTEXT]);
 
-    ProfileRight::deleteProfileRights([PresenceProfile::RIGHT]);
+    global $DB;
+    $DB->delete('glpi_profilerights', ['name' => PresenceProfile::RIGHT]);
 
     return true;
 }

@@ -4,7 +4,7 @@ use Glpi\Plugin\Hooks;
 use GlpiPlugin\Presence\Presence;
 use GlpiPlugin\Presence\PresenceProfile;
 
-define('PLUGIN_PRESENCE_VERSION', '1.1.0');
+define('PLUGIN_PRESENCE_VERSION', '1.2.0');
 define('PLUGIN_PRESENCE_MIN_GLPI', '11.0.0');
 define('PLUGIN_PRESENCE_MAX_GLPI', '11.1.0');
 
