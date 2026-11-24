@@ -1,7 +1,7 @@
 # Plugin GLPI "Presenza in sede"
 
 Mostra un badge **In sede / Non in sede** nella scheda utente e tra i richiedenti dei ticket,
-interrogando un endpoint HTTP esistente. Compatibile con GLPI 11.0.x (PHP 8.2+).
+interrogando un endpoint HTTP esistente. Compatibile con GLPI 11.0.x (PHP 8.2+) e GLPI 12.0.x (PHP 8.3+, requisito di GLPI 12).
 
 ## Installazione
 
@@ -49,4 +49,7 @@ Alla prima installazione il diritto viene concesso al profilo di chi installa il
 
 - Il badge viene caricato in AJAX (`ajax/status.php`): un endpoint lento non rallenta l'apertura della pagina.
 - Gli errori di chiamata sono scritti in `files/_log/presence.log`.
+- Con GLPI 12 le chiamate dal server verso reti interne possono essere bloccate dalle protezioni di GLPI.
+  Se l'endpoint è su un indirizzo interno e il badge resta grigio, controlla `files/_log/presence.log`
+  e la configurazione di GLPI per gli indirizzi consentiti.
 - I testi sono in italiano come stringhe sorgente; per altre lingue si possono aggiungere i file in `locales/`.
