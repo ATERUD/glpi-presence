@@ -39,7 +39,7 @@ function plugin_version_presence()
         'version'      => PLUGIN_PRESENCE_VERSION,
         'author'       => 'IT',
         'license'      => 'GPLv2+',
-        'homepage'     => '',
+        'homepage'     => 'https://github.com/ATERUD/glpi-presence',
         'requirements' => [
             'glpi' => [
                 'min' => PLUGIN_PRESENCE_MIN_GLPI,
