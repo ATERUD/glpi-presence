@@ -6,7 +6,7 @@ use GlpiPlugin\Presence\PresenceProfile;
 
 define('PLUGIN_PRESENCE_VERSION', '1.2.0');
 define('PLUGIN_PRESENCE_MIN_GLPI', '11.0.0');
-define('PLUGIN_PRESENCE_MAX_GLPI', '11.1.0');
+define('PLUGIN_PRESENCE_MAX_GLPI', '12.1.0');
 
 /**
  * Inizializzazione del plugin
@@ -39,7 +39,7 @@ function plugin_version_presence()
         'version'      => PLUGIN_PRESENCE_VERSION,
         'author'       => 'IT',
         'license'      => 'GPLv2+',
-        'homepage'     => '',
+        'homepage'     => 'https://github.com/ATERUD/glpi-presence',
         'requirements' => [
             'glpi' => [
                 'min' => PLUGIN_PRESENCE_MIN_GLPI,
